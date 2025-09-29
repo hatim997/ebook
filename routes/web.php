@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\GithubController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Dashboard\BookController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\NotificationController;
 use App\Http\Controllers\Dashboard\ProfileController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Dashboard\RolePermission\RoleController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\User\ArchivedUserController;
 use App\Http\Controllers\Dashboard\User\UserController;
+use App\Http\Controllers\Dashboard\UserPurchasesController;
 use App\Http\Middleware\CheckAccountActivation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -136,9 +138,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('send-mail/setting', [SettingController::class, 'sendTestMail'])->name('setting.send_test_mail');
 
             // User Dashboard Authentication Routes
+            Route::resource('books', BookController::class);
+            Route::get('book-laws/{id}', [BookController::class, 'bookLawIndex'])->name('book-laws.index');
+            Route::get('book-laws/create/{id}', [BookController::class, 'bookLawCreate'])->name('book-laws.create');
+            Route::post('book-laws/store/{id}', [BookController::class, 'bookLawStore'])->name('book-laws.store');
+            Route::get('book-laws/edit/{id}', [BookController::class, 'bookLawEdit'])->name('book-laws.edit');
+            Route::post('book-laws/update/{id}', [BookController::class, 'bookLawUpdate'])->name('book-laws.update');
+            Route::delete('book-laws/delete/{id}', [BookController::class, 'bookLawDestroy'])->name('book-laws.destroy');
 
-
-
+            //User Purchase Controller
+            Route::resource('user-purchases', UserPurchasesController::class);
         });
     });
 

@@ -42,6 +42,21 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update setting']);
         Permission::create(['name' => 'delete setting']);
 
+        Permission::create(['name' => 'view book']);
+        Permission::create(['name' => 'create book']);
+        Permission::create(['name' => 'update book']);
+        Permission::create(['name' => 'delete book']);
+
+        Permission::create(['name' => 'view book law']);
+        Permission::create(['name' => 'create book law']);
+        Permission::create(['name' => 'update book law']);
+        Permission::create(['name' => 'delete book law']);
+
+        Permission::create(['name' => 'view user purchases']);
+        Permission::create(['name' => 'create user purchases']);
+        Permission::create(['name' => 'update user purchases']);
+        Permission::create(['name' => 'delete user purchases']);
+
 
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
@@ -97,6 +112,26 @@ class UserRolePermissionSeeder extends Seeder
         ], [
             'user_id' => $adminUser->id,
             'first_name' => $adminUser->name,
+        ]);
+
+
+        $simpleUser = User::firstOrCreate([
+                            'email' => 'user@gmail.com'
+                        ], [
+                            'name' => 'User',
+                            'username' => 'user123',
+                            'email' => 'user@gmail.com',
+                            'password' => Hash::make ('12345678'),
+                            'email_verified_at' => now(),
+                        ]);
+
+        $simpleUser->assignRole($userRole);
+
+        $simpleUserProfile = $simpleUser->profile()->firstOrCreate([
+            'user_id' => $simpleUser->id,
+        ], [
+            'user_id' => $simpleUser->id,
+            'first_name' => $simpleUser->name,
         ]);
     }
 }

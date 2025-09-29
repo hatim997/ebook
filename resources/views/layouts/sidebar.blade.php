@@ -2,7 +2,7 @@
     <div class="app-brand demo">
         <a href="{{ route('dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{env('APP_NAME')}}">
+                <img style="height: 25px;" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{env('APP_NAME')}}">
             </span>
             <span class="app-brand-text demo menu-text fw-bold">{{\App\Helpers\Helper::getCompanyName()}}</span>
         </a>
@@ -28,6 +28,22 @@
         <li class="menu-header small">
             <span class="menu-header-text">{{__('Apps & Pages')}}</span>
         </li>
+        @can(['view book'])
+            <li class="menu-item {{ request()->routeIs('dashboard.books.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.books.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-book"></i>
+                    <div>{{__('Books')}}</div>
+                </a>
+            </li>
+        @endcan
+        @can(['view user purchases'])
+            <li class="menu-item {{ request()->routeIs('dashboard.user-purchases.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.user-purchases.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-cash"></i>
+                    <div>{{__('Purchases')}}</div>
+                </a>
+            </li>
+        @endcan
         @canany(['view user', 'view archived user'])
             <li class="menu-item {{ request()->routeIs('dashboard.user.*') || request()->routeIs('dashboard.archived-user.*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
