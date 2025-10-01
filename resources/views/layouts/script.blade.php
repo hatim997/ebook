@@ -37,6 +37,16 @@
 
 <script>
     $(document).ready(function() {
+        var select2 = $('.select2');
+        if (select2.length) {
+            select2.each(function() {
+                var $this = $(this);
+                $this.wrap('<div class="position-relative"></div>').select2({
+                    placeholder: 'Select value',
+                    dropdownParent: $this.parent()
+                });
+            });
+        }
         $(document).on('click', '.copy-icon', function() {
             var textToCopy = $(this).prev().text().trim(); // Get text from previous element
 

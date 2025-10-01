@@ -44,19 +44,23 @@ class HomeController extends Controller
             if ($isPurchased) {
                 $lawOfTheDay = $book->bookLaws()->inRandomOrder()->first();
             } else {
-                // If not purchased → random from only free_laws
-                $lawOfTheDay = $book->bookLaws()
-                    ->orderBy('id') // ensure consistent "first N laws"
+                $freeLawIds = $book->bookLaws()
+                    ->orderBy('id')
                     ->limit($book->free_laws)
+                    ->pluck('id');
+
+                $lawOfTheDay = $book->bookLaws()
+                    ->whereIn('id', $freeLawIds)
                     ->inRandomOrder()
                     ->first();
             }
 
+
             // Check if the selected law is in favourites
             $isFavourite = $lawOfTheDay
                 ? UserFavourite::where('user_id', $userId)
-                    ->where('book_law_id', $lawOfTheDay->id)
-                    ->exists()
+                ->where('book_law_id', $lawOfTheDay->id)
+                ->exists()
                 : false;
 
             return response()->json([
@@ -68,7 +72,7 @@ class HomeController extends Controller
                     'id'      => $lawOfTheDay->id,
                     'name'    => $lawOfTheDay->title,
                     'content' => $lawOfTheDay->content,
-                    'is_favourite'=> $isFavourite,
+                    'is_favourite' => $isFavourite,
                 ] : null,
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {

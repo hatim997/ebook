@@ -63,6 +63,7 @@ class BookController extends Controller
             'free_laws' => 'required|integer|min:0',
             'description' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max_size',
+            'pdf_file' => 'nullable|file',
         ]);
 
         if ($validator->fails()) {
@@ -89,6 +90,14 @@ class BookController extends Controller
                 $bookImage_path = 'uploads/book-images';
                 $bookImage->move(public_path($bookImage_path), $bookImage_name);
                 $book->image = $bookImage_path . "/" . $bookImage_name;
+            }
+            if ($request->hasFile('pdf_file')) {
+                $pdfFile = $request->file('pdf_file');
+                $pdfFile_ext = $pdfFile->getClientOriginalExtension();
+                $pdfFile_name = time() . '_pdfFile.' . $pdfFile_ext;
+                $pdfFile_path = 'uploads/pdf-files';
+                $pdfFile->move(public_path($pdfFile_path), $pdfFile_name);
+                $book->pdf_file = $pdfFile_path . "/" . $pdfFile_name;
             }
 
             $book->save();
@@ -154,6 +163,7 @@ class BookController extends Controller
             'free_laws' => 'required|integer|min:0',
             'description' => 'required',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max_size',
+            'pdf_file' => 'nullable|file',
         ]);
 
         if ($validator->fails()) {
@@ -184,6 +194,19 @@ class BookController extends Controller
                 $bookImage_path = 'uploads/book-images';
                 $bookImage->move(public_path($bookImage_path), $bookImage_name);
                 $book->image = $bookImage_path . "/" . $bookImage_name;
+            }
+
+            if ($request->hasFile('pdf_file')) {
+                if (isset($book->pdf_file) && File::exists(public_path($book->pdf_file))) {
+                    File::delete(public_path($book->pdf_file));
+                }
+
+                $pdfFile = $request->file('pdf_file');
+                $pdfFile_ext = $pdfFile->getClientOriginalExtension();
+                $pdfFile_name = time() . '_pdfFile.' . $pdfFile_ext;
+                $pdfFile_path = 'uploads/pdf-files';
+                $pdfFile->move(public_path($pdfFile_path), $pdfFile_name);
+                $book->pdf_file = $pdfFile_path . "/" . $pdfFile_name;
             }
 
             $book->save();

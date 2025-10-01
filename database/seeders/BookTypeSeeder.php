@@ -14,10 +14,11 @@ class BookTypeSeeder extends Seeder
     public function run(): void
     {
         $booktypes = [
-            ['name' => 'Ebook', 'slug' => 'ebook'],
-            ['name' => 'Paperback', 'slug' => 'paperback'],
-            ['name' => 'Hardcover', 'slug' => 'hardcover'],
-            ['name' => 'Audiobook', 'slug' => 'audiobook'],
+            ['name' => 'Book', 'slug' => 'book', 'is_pdf' => '0'],
+            ['name' => 'Ebook', 'slug' => 'ebook', 'is_pdf' => '1'],
+            ['name' => 'Paperback', 'slug' => 'paperback', 'is_pdf' => '1'],
+            ['name' => 'Hardcover', 'slug' => 'hardcover', 'is_pdf' => '1'],
+            ['name' => 'Audiobook', 'slug' => 'audiobook', 'is_pdf' => '1'],
         ];
 
         foreach ($booktypes as $booktype) {

@@ -148,6 +148,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             //User Purchase Controller
             Route::resource('user-purchases', UserPurchasesController::class);
+
+            //Create Notification
+            Route::get('/notifications/create', [NotificationController::class, 'create'])->name('notifications.create');
+            Route::post('/notifications/store', [NotificationController::class, 'store'])->name('notifications.store');
         });
     });
 

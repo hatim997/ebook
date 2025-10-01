@@ -57,6 +57,11 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update user purchases']);
         Permission::create(['name' => 'delete user purchases']);
 
+        Permission::create(['name' => 'view notification']);
+        Permission::create(['name' => 'create notification']);
+        Permission::create(['name' => 'update notification']);
+        Permission::create(['name' => 'delete notification']);
+
 
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin

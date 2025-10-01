@@ -18,21 +18,71 @@ class NotificationController extends Controller
         try {
             $user = User::find(Auth::user()->id);
             $notifications = Notification::where('user_id', $user->id)->orderByRaw('read_at IS NULL DESC')
-            ->orderBy('created_at', 'desc')
-            ->get();;
+                ->orderBy('created_at', 'desc')
+                ->get();;
             // $notifications = Notification::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
             return response()->json([
                 'success' => true,
                 'notifications' => $notifications
-            ],200);
+            ], 200);
         } catch (\Throwable $th) {
             Log::error("Notification Index Failed:" . $th->getMessage());
             return response()->json([
-                'success'=> false,
-                'message'=> $th->getMessage()
-            ],500);
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
+
+    public function create()
+    {
+        $this->authorize('create notification');
+        try {
+            $currentuser = Auth::user();
+            $users = User::where('is_active', 'active')->where('id', '!=', $currentuser->id)->get();
+            return view('dashboard.notifications.create', compact('users'));
+        } catch (\Throwable $th) {
+            Log::error('Books Create Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+            throw $th;
+        }
+    }
+
+    public function store(Request $request)
+    {
+        $this->authorize('create notification');
+
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'message' => 'required|string',
+                'send_all' => 'nullable|boolean',
+                'user_ids' => 'required_if:send_all,false|array',
+                'user_ids.*' => 'exists:users,id',
+            ], [
+                'user_ids.required_if' => 'Please select at least one user if Send to All is not checked.',
+            ]);
+
+            if ($request->boolean('send_all')) {
+                // Get all users except current authenticated user
+                $users = User::where('id', '!=', auth()->id())->get();
+            } else {
+                // Get only selected users
+                $users = User::whereIn('id', $request->user_ids ?? [])->get();
+            }
+
+            // Send notifications
+            app('notificationService')->notifyUsers($users, $request->title, $request->message);
+
+            return redirect()
+                ->route('dashboard.notifications.create')
+                ->with('success', 'Notification sent successfully');
+        } catch (\Throwable $th) {
+            Log::error('Notification Send Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+        }
+    }
+
 
     public function markAsRead($id)
     {
@@ -44,13 +94,13 @@ class NotificationController extends Controller
             return response()->json([
                 'success' => true,
                 'status' => 'success'
-            ],200);
+            ], 200);
         } catch (\Throwable $th) {
             Log::error("Notification Mark as Read Failed:" . $th->getMessage());
             return response()->json([
-                'success'=> false,
-                'message'=> $th->getMessage()
-            ],500);
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -66,13 +116,13 @@ class NotificationController extends Controller
             return response()->json([
                 'success' => true,
                 'status' => 'success'
-            ],200);
+            ], 200);
         } catch (\Throwable $th) {
             Log::error("Notification Mark All as Read Failed:" . $th->getMessage());
             return response()->json([
-                'success'=> false,
-                'message'=> $th->getMessage()
-            ],500);
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -84,12 +134,12 @@ class NotificationController extends Controller
             return response()->json([
                 'success' => true,
                 'status' => 'success'
-            ],200);
+            ], 200);
         } catch (\Throwable $th) {
             return response()->json([
-                'success'=> false,
-                'message'=> $th->getMessage()
-            ],500);
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 
@@ -102,13 +152,13 @@ class NotificationController extends Controller
             return response()->json([
                 'success' => true,
                 'status' => 'success'
-            ],200);
+            ], 200);
         } catch (\Throwable $th) {
             Log::error("Notification Deletion Failed:" . $th->getMessage());
             return response()->json([
-                'success'=> false,
-                'message'=> $th->getMessage()
-            ],500);
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
         }
     }
 }

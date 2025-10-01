@@ -8,8 +8,11 @@ class Notification extends Model
 {
     protected $fillable = [
         'user_id',
+        'title',
         'message',
-        'read_at',
+        'table_name',
+        'table_id',
+        'page',
     ];
 
     public function user()

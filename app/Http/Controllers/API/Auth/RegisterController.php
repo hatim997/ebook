@@ -80,7 +80,7 @@ class RegisterController extends Controller
             //     });
             // }
 
-            app('notificationService')->notifyUsers([$user], 'Welcome to ' . Helper::getCompanyName());
+            app('notificationService')->notifyUsers([$user], 'Welcome to ' . Helper::getCompanyName(), 'Start reading today and enjoy your journey');
             // $user->sendEmailVerificationNotification();
 
             DB::commit();

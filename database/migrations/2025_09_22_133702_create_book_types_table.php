@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('description')->nullable();
+            $table->enum('is_pdf', ['0', '1'])->default('1');
             $table->enum('is_active', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });

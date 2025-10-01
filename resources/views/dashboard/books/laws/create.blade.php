@@ -3,7 +3,7 @@
 @section('title', __('Create Book Law'))
 
 @section('css')
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"> --}}
 @endsection
 
 
@@ -68,22 +68,22 @@
 
 @section('script')
     <!-- Vendors JS -->
-    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js" referrerpolicy="origin"></script> --}}
     <script>
         $(document).ready(function() {
-            tinymce.init({
-                selector: '#description',
-                height: 500,
-                plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
-                toolbar: `undo redo | formatselect | fontselect fontsizeselect |
-                          bold italic underline strikethrough forecolor backcolor |
-                          alignleft aligncenter alignright alignjustify |
-                          bullist numlist outdent indent | link image media table |
-                          removeformat | code fullscreen`,
-                menubar: 'file edit view insert format tools table help',
-                branding: false,
-                content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
-            });
+            // tinymce.init({
+            //     selector: '#description',
+            //     height: 500,
+            //     plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+            //     toolbar: `undo redo | formatselect | fontselect fontsizeselect |
+            //               bold italic underline strikethrough forecolor backcolor |
+            //               alignleft aligncenter alignright alignjustify |
+            //               bullist numlist outdent indent | link image media table |
+            //               removeformat | code fullscreen`,
+            //     menubar: 'file edit view insert format tools table help',
+            //     branding: false,
+            //     content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+            // });
 
             // Generate slug from name
             $('#title').on('keyup change', function() {

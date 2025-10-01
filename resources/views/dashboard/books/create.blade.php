@@ -3,7 +3,7 @@
 @section('title', __('Create Book'))
 
 @section('css')
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    {{-- <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet"> --}}
 @endsection
 
 
@@ -96,7 +96,7 @@
                             <label for="price" class="form-label">{{ __('Price') }}</label><span
                                 class="text-danger">*</span>
                             <input class="form-control @error('price') is-invalid @enderror" type="number" id="price"
-                                name="price" required placeholder="{{ __('Enter price') }}" />
+                                name="price" step="any" required placeholder="{{ __('Enter price') }}" />
                             @error('price')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -104,10 +104,9 @@
                             @enderror
                         </div>
                         <div class="mb-4 col-md-6">
-                            <label for="free_laws" class="form-label">{{ __('No of Free Laws') }}</label><span
-                                class="text-danger">*</span>
+                            <label for="free_laws" class="form-label">{{ __('No of Free Laws') }}</label>
                             <input class="form-control @error('free_laws') is-invalid @enderror" type="number" step="any" id="free_laws"
-                                name="free_laws" required placeholder="{{ __('Enter Free Laws') }}" />
+                                name="free_laws" value="{{ old('free_laws') ?? '0' }}" required placeholder="{{ __('Enter Free Laws') }}" />
                             @error('free_laws')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -115,11 +114,20 @@
                             @enderror
                         </div>
                         <div class="mb-4 col-md-6">
-                            <label for="image" class="form-label">{{ __('Image') }}</label><span
-                                class="text-danger">*</span>
+                            <label for="image" class="form-label">{{ __('Image') }}</label>
                             <input class="form-control @error('image') is-invalid @enderror" type="file"
                                 id="image" name="image" accept="image/*" />
                             @error('image')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-4 col-md-6">
+                            <label for="pdf_file" class="form-label">{{ __('PDF File') }}</label>
+                            <input class="form-control @error('pdf_file') is-invalid @enderror" type="file"
+                                id="pdf_file" name="pdf_file" />
+                            @error('pdf_file')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -148,22 +156,22 @@
 
 @section('script')
     <!-- Vendors JS -->
-    <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js" referrerpolicy="origin"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.3/tinymce.min.js" referrerpolicy="origin"></script> --}}
     <script>
         $(document).ready(function() {
-            tinymce.init({
-                selector: '#description',
-                height: 500,
-                plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
-                toolbar: `undo redo | formatselect | fontselect fontsizeselect |
-                          bold italic underline strikethrough forecolor backcolor |
-                          alignleft aligncenter alignright alignjustify |
-                          bullist numlist outdent indent | link image media table |
-                          removeformat | code fullscreen`,
-                menubar: 'file edit view insert format tools table help',
-                branding: false,
-                content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
-            });
+            // tinymce.init({
+            //     selector: '#description',
+            //     height: 500,
+            //     plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
+            //     toolbar: `undo redo | formatselect | fontselect fontsizeselect |
+            //               bold italic underline strikethrough forecolor backcolor |
+            //               alignleft aligncenter alignright alignjustify |
+            //               bullist numlist outdent indent | link image media table |
+            //               removeformat | code fullscreen`,
+            //     menubar: 'file edit view insert format tools table help',
+            //     branding: false,
+            //     content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
+            // });
 
             // Generate slug from name
             $('#title').on('keyup change', function() {

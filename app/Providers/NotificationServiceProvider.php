@@ -15,14 +15,18 @@ class NotificationServiceProvider extends ServiceProvider
     {
         $this->app->singleton('notificationService', function () {
             return new class {
-                public function notifyUsers($users, $message )
+                public function notifyUsers($users, $title, $message, $tableName = null, $tableId = null, $page = null )
                 {
                     foreach ($users as $user) {
                         $notification = Notification::create([
                             'user_id' => $user->id,
+                            'title' => $title,
                             'message' => $message,
+                            'table_name' => $tableName,
+                            'table_id' => $tableId,
+                            'page' => $page,
                         ]);
-                        broadcast(new NotificationEvent($notification));
+                        // broadcast(new NotificationEvent($notification));
                     }
                 }
             };

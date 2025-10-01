@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('image')->nullable();
             $table->string('price');
             $table->string('free_laws')->default(0);
+            $table->string('pdf_file')->nullable();
             $table->timestamps();
         });
     }

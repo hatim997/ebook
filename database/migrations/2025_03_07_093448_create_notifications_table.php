@@ -17,7 +17,11 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->string('title');
             $table->text('message');
+            $table->string('table_name')->nullable();
+            $table->string('table_id')->nullable();
+            $table->string('page')->nullable();
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
         });

@@ -44,6 +44,14 @@
                 </a>
             </li>
         @endcan
+        @can(['create notification'])
+            <li class="menu-item {{ request()->routeIs('dashboard.notifications.create') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.notifications.create') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-bell"></i>
+                    <div>{{__('Send Notification')}}</div>
+                </a>
+            </li>
+        @endcan
         @canany(['view user', 'view archived user'])
             <li class="menu-item {{ request()->routeIs('dashboard.user.*') || request()->routeIs('dashboard.archived-user.*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
