@@ -1,6 +1,16 @@
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N0GYVPE8WZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-N0GYVPE8WZ');
+</script>
+
 {{-- <script src="{{ mix('resources/js/app.js') }}"></script> --}}
 <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
 <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
