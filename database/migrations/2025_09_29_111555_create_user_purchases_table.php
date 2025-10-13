@@ -28,7 +28,7 @@ return new class extends Migration
                 ->nullOnDelete();
             $table->string('amount');
             $table->enum('payment_status',['pending', 'paid', 'failed'])->default('pending');
-            $table->enum('payment_type',['card', 'paypal', 'stripe', 'authorize.net'])->default('card');
+            $table->enum('payment_type',['card', 'paypal', 'stripe', 'authorize.net','cod'])->default('card');
             $table->timestamps();
         });
     }

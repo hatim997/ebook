@@ -9,6 +9,15 @@ class UserPurchase extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'billing_id',
+        'book_id',
+        'payment_type',
+        'amount',
+        'payment_status',
+    ];
+
     public function billing()
     {
         return $this->belongsTo(Billing::class);

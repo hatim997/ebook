@@ -55,10 +55,16 @@ class HomeController extends Controller
                     ->first();
             }
 
-
             // Check if the selected law is in favourites
             $isFavourite = $lawOfTheDay
                 ? UserFavourite::where('user_id', $userId)
+                ->where('book_law_id', $lawOfTheDay->id)
+                ->exists()
+                : false;
+
+            // Check if the selected law is in reads
+            $isRead = $lawOfTheDay
+                ? UserRead::where('user_id', $userId)
                 ->where('book_law_id', $lawOfTheDay->id)
                 ->exists()
                 : false;
@@ -73,6 +79,7 @@ class HomeController extends Controller
                     'name'    => $lawOfTheDay->title,
                     'content' => $lawOfTheDay->content,
                     'is_favourite' => $isFavourite,
+                    'is_read' => $isRead,
                 ] : null,
             ], Response::HTTP_OK);
         } catch (\Throwable $th) {

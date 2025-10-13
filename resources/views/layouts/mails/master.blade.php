@@ -31,6 +31,12 @@
             color: inherit;
             text-decoration: none;
         }
+        .app-brand{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
         .email-header .app-brand-logo img {
             width: 60px;
             height: 60px;
@@ -109,10 +115,10 @@
     <div class="email-container">
         <div class="email-header">
             <a href="{{route('dashboard')}}" class="app-brand auth-cover-brand">
-                <span class="app-brand-logo demo">
-                    <img src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{\App\Helpers\Helper::getCompanyName()}}">
+                <span class="app-brand-logo">
+                    <img height="40px" src="{{ url(\App\Helpers\Helper::getLogoLight()) }}" alt="{{\App\Helpers\Helper::getCompanyName()}}">
                 </span>
-                <span class="app-brand-text demo text-heading fw-bold">{{ \App\Helpers\Helper::getCompanyName() }}</span>
+                <span class="app-brand-text text-heading fw-bold">{{ \App\Helpers\Helper::getCompanyName() }}</span>
             </a>
         </div>
 

@@ -45,23 +45,27 @@
                             @enderror
                         </div>
                         <div class="mb-4 col-md-6">
-                            <label class="form-label" for="book_type_id">{{ __('Book Type') }}</label>
-                            <select id="book_type_id" name="book_type_id" class="select2 form-select @error('book_type_id') is-invalid @enderror">
-                                <option value="" selected disabled>{{ __('Select Book Type') }}</option>
-                                @if (isset($bookTypes) && count($bookTypes) > 0)
-                                    @foreach ($bookTypes as $bookType)
-                                        <option value="{{ $bookType->id }}"
-                                            {{ $bookType->id == old('book_type_id') ? 'selected' : '' }}>{{ $bookType->name }}
+                            <label class="form-label" for="subject_id">{{ __('Subjects') }}</label>
+                            <select id="subject_id" name="subject_id[]"
+                                class="select2 form-select @error('subject_id.*') is-invalid @enderror" multiple>
+
+                                @if (isset($subjects) && count($subjects) > 0)
+                                    @foreach ($subjects as $subject)
+                                        <option value="{{ $subject->id }}"
+                                            {{ collect(old('subject_id', []))->contains($subject->id) ? 'selected' : '' }}>
+                                            {{ $subject->name }}
                                         </option>
                                     @endforeach
                                 @endif
                             </select>
-                            @error('book_type_id')
+
+                            @error('subject_id.*')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
+
                         <div class="mb-4 col-md-6">
                             <label for="author" class="form-label">{{ __('Author') }}</label>
                             <input class="form-control @error('author') is-invalid @enderror" type="text" id="author"
@@ -74,8 +78,9 @@
                         </div>
                         <div class="mb-4 col-md-6">
                             <label for="publication_year" class="form-label">{{ __('Publication Year') }}</label>
-                            <input class="form-control @error('publication_year') is-invalid @enderror" type="date" id="publication_year"
-                                name="publication_year" placeholder="{{ __('Enter publication year') }}" />
+                            <input class="form-control @error('publication_year') is-invalid @enderror" type="date"
+                                id="publication_year" name="publication_year"
+                                placeholder="{{ __('Enter publication year') }}" />
                             @error('publication_year')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -105,8 +110,9 @@
                         </div>
                         <div class="mb-4 col-md-6">
                             <label for="free_laws" class="form-label">{{ __('No of Free Laws') }}</label>
-                            <input class="form-control @error('free_laws') is-invalid @enderror" type="number" step="any" id="free_laws"
-                                name="free_laws" value="{{ old('free_laws') ?? '0' }}" required placeholder="{{ __('Enter Free Laws') }}" />
+                            <input class="form-control @error('free_laws') is-invalid @enderror" type="number"
+                                step="any" id="free_laws" name="free_laws" value="{{ old('free_laws') ?? '0' }}"
+                                required placeholder="{{ __('Enter Free Laws') }}" />
                             @error('free_laws')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -115,8 +121,8 @@
                         </div>
                         <div class="mb-4 col-md-6">
                             <label for="image" class="form-label">{{ __('Image') }}</label>
-                            <input class="form-control @error('image') is-invalid @enderror" type="file"
-                                id="image" name="image" accept="image/*" />
+                            <input class="form-control @error('image') is-invalid @enderror" type="file" id="image"
+                                name="image" accept="image/*" />
                             @error('image')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -164,10 +170,10 @@
             //     height: 500,
             //     plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table code help wordcount',
             //     toolbar: `undo redo | formatselect | fontselect fontsizeselect |
-            //               bold italic underline strikethrough forecolor backcolor |
-            //               alignleft aligncenter alignright alignjustify |
-            //               bullist numlist outdent indent | link image media table |
-            //               removeformat | code fullscreen`,
+        //               bold italic underline strikethrough forecolor backcolor |
+        //               alignleft aligncenter alignright alignjustify |
+        //               bullist numlist outdent indent | link image media table |
+        //               removeformat | code fullscreen`,
             //     menubar: 'file edit view insert format tools table help',
             //     branding: false,
             //     content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"

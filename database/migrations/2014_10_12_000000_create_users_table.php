@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('is_active', ['active', 'inactive'])->default('active');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
+            $table->string('forget_pass_otp')->nullable();
             $table->timestamps();
             $table->softDeletes(); // This adds the 'deleted_at' column
         });

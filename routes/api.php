@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\LoginController;
-use App\Http\Controllers\Api\Auth\LogoutController;
-use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\API\Auth\ForgetPasswordController;
+use App\Http\Controllers\API\Auth\LoginController;
+use App\Http\Controllers\API\Auth\LogoutController;
+use App\Http\Controllers\API\Auth\RegisterController;
+use App\Http\Controllers\API\Frontend\BookController;
 use App\Http\Controllers\API\Frontend\BookLawController;
 use App\Http\Controllers\Api\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\NotificationController;
@@ -40,6 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Store apis
     Route::get('/user/store', [StoreController::class, 'getStore']);
     Route::get('/user/checkout', [StoreController::class, 'checkout']);
+    Route::post('/user/submit-checkout', [StoreController::class, 'checkoutSubmit']);
 
     //Profile apis
     Route::get('/user/profile', [ProfileController::class, 'getProfile']);
@@ -47,9 +50,16 @@ Route::middleware('auth:sanctum')->group(function () {
     //Notification apis
     Route::get('/user/notifications', [NotificationController::class, 'getUserNotifications']);
 
+    //book apis
+    Route::get('/user/books', [BookController::class, 'allBooks']);
+    Route::get('/user/books/{id}', [BookController::class, 'getLaws']);
+
 });
 
 
 // Authentication Routes (Login and Register) for guests
 Route::post('/login', [LoginController::class, 'login_attempt']);
 Route::post('/register', [RegisterController::class, 'register_attempt']);
+Route::post('/forget-password', [ForgetPasswordController::class, 'forgetPassEmail']);
+Route::post('/otp-verification', [ForgetPasswordController::class, 'OtpVerification']);
+Route::post('/reset-password', [ForgetPasswordController::class, 'resetPassword']);
