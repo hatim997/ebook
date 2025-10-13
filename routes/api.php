@@ -6,7 +6,7 @@ use App\Http\Controllers\API\Auth\LogoutController;
 use App\Http\Controllers\API\Auth\RegisterController;
 use App\Http\Controllers\API\Frontend\BookController;
 use App\Http\Controllers\API\Frontend\BookLawController;
-use App\Http\Controllers\Api\Frontend\HomeController;
+use App\Http\Controllers\API\Frontend\HomeController;
 use App\Http\Controllers\API\Frontend\NotificationController;
 use App\Http\Controllers\API\Frontend\ProfileController;
 use App\Http\Controllers\API\Frontend\StoreController;
