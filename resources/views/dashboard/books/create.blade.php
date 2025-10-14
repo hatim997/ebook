@@ -45,21 +45,21 @@
                             @enderror
                         </div>
                         <div class="mb-4 col-md-6">
-                            <label class="form-label" for="subject_id">{{ __('Subjects') }}</label>
-                            <select id="subject_id" name="subject_id[]"
-                                class="select2 form-select @error('subject_id.*') is-invalid @enderror" multiple>
+                            <label class="form-label" for="book_type_id">{{ __('Subjects') }}</label>
+                            <select id="book_type_id" name="book_type_id"
+                                class="select2 form-select @error('book_type_id.*') is-invalid @enderror">
 
-                                @if (isset($subjects) && count($subjects) > 0)
-                                    @foreach ($subjects as $subject)
-                                        <option value="{{ $subject->id }}"
-                                            {{ collect(old('subject_id', []))->contains($subject->id) ? 'selected' : '' }}>
-                                            {{ $subject->name }}
+                                @if (isset($bookTypes) && count($bookTypes) > 0)
+                                    @foreach ($bookTypes as $bookType)
+                                        <option value="{{ $bookType->id }}"
+                                            {{ collect(old('book_type_id', []))->contains($bookType->id) ? 'selected' : '' }}>
+                                            {{ $bookType->name }}
                                         </option>
                                     @endforeach
                                 @endif
                             </select>
 
-                            @error('subject_id.*')
+                            @error('book_type_id.*')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
