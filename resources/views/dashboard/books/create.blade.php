@@ -45,7 +45,7 @@
                             @enderror
                         </div>
                         <div class="mb-4 col-md-6">
-                            <label class="form-label" for="book_type_id">{{ __('Subjects') }}</label>
+                            <label class="form-label" for="book_type_id">{{ __('Book Type') }}</label>
                             <select id="book_type_id" name="book_type_id"
                                 class="select2 form-select @error('book_type_id.*') is-invalid @enderror">
 

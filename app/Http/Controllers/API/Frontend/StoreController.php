@@ -29,6 +29,7 @@ class StoreController extends Controller
 
             $data = $books->map(function ($book) use ($user) {
                 return [
+                    'id' => $book->id,
                     'title' => $book->title,
                     'slug' => $book->slug,
                     'price' => $book->price,
